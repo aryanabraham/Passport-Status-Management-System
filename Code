@@ -1,0 +1,90 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+class Menu
+{
+    public:
+        string name;
+        int code;
+        string mailid;
+
+
+};
+fstream ofp;
+Menu ob;
+void input()
+{
+
+    ofp.open("C:\\drvrtmp\\data.txt", ios :: out | ios :: app | ios :: binary);
+
+    if(!ofp)
+    {
+        cout<<"Unable to open file!!!!"<<endl;
+        return;
+    }
+
+    cout<<"\nEnter your name: ";
+	getline(cin,ob.name);
+	cout<<"Enter your mailid ";
+	getline(cin,ob.mailid);
+	cout<<"Enter your code: ";
+	cin>>ob.code;
+	cin.ignore();
+    cout<<"Record added to database!!!";
+    ofp.write((char*)&ob, sizeof(ob));
+    ofp.close();
+
+}
+void show()
+{
+    ofp.open("C:\\drvrtmp\\data.txt", ios :: in | ios :: binary);
+    if(!ofp)
+    {
+        cout<<"Unable to open file!!!!"<<endl;
+        return;
+    }
+
+    while(ofp.read((char*)&ob, sizeof(ob)))
+    {
+            if(ob.code>70)
+            {
+
+
+            cout<<"Record Found"<<endl;
+            cout<<"\nNAME: "<<ob.name<<endl;
+            cout<<"mail: "<<ob.mailid<<endl;
+            cout<<"\ncode: "<<ob.code<<"\n\n";
+            }
+
+        }
+   ofp.close();
+}
+
+int main()
+{
+    int choice;
+    while(1)
+    {
+        cout<<"Please enter your choice: "<<endl;
+        cin>>choice;
+       cin.ignore();
+        switch(choice)
+
+        {
+            case 1:
+              input();
+              break;
+            case 2:
+                show();
+                break;
+
+            case 3:
+            exit(0);
+
+            default:
+            cout<<"Please Enter correct input"<<endl;
+        }
+    }
+    return 0;
+}
