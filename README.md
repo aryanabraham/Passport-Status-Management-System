@@ -1,2 +1,2 @@
 # Passport Status Management System
-A console-based passport status management system implemented in C++
+A console-based passport status management system implemented in C++.
